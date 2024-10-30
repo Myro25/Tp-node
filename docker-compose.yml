@@ -1,0 +1,24 @@
+services:
+  mariadb:
+    image: mariadb:11
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: "password"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  backend:
+    #build: .
+    image: node:22
+    ports:
+      - "3001:3001"
+
+    volumes:
+      - ./app:/app
+    depends_on:
+      - mariadb
+    command: "node /app/src/app.js"
+
+volumes:
+  dbdata:
