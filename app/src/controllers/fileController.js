@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// fonction pour uploader un fichier
+// Fonction pour uploader un fichier
 exports.uploadFile = [
     upload.single('file'),
     async (req, res) => {
@@ -28,6 +28,7 @@ exports.uploadFile = [
             if (usedQuota + file.size > user.quota) {
                 return res.status(400).json({ error: 'Quota dépassé' });
             }
+
             // Enregistrer le fichier dans la base de données
             const Newfile = await File.create({
                 filename: file.originalname,
@@ -40,14 +41,12 @@ exports.uploadFile = [
                 }
             });
 
-            res.status(201).json({ message: 'Fichier uploadé avec succés', file: newfile });
-
+            res.status(201).json({ message: 'Fichier uploadé avec succès', file: Newfile });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erreur lors de l\'upload du fichier' });
         }
-
-
+    }
 ];
 
 exports.deletefile = async (req, res, next) => {
