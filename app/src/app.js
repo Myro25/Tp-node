@@ -1,10 +1,3 @@
-// tourner docker
-while (true) {
-
-}
-
-
-
 const express = require('express');
 const sequelize = require('./database');
 const authRoutes = require('./routes/authRoutes');
