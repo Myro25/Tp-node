@@ -1,8 +1,14 @@
-const { config } = require('dotenv');
-const jwt = require('jsonwebtoken');
-const config2 = require('../config');
+const baseUrl = 'http://localhost:3000/files/download'; // URL de base pour le téléchargement
 
-module.exports = (fileId, UserId) => {
-    return jwt.sign({ fileId, UserId }, config2.secret, { expiresIn: "1h" })
-}
+/**
 
+ * @param {number} fileId 
+ * @param {number} userId 
+ * @returns {string}
+ */
+const generateLink = (fileId, userId) => {
+    // Crée un lien unique en ajoutant l'ID du fichier et éventuellement l'ID de l'utilisateur
+    return `${baseUrl}/${fileId}?user=${userId}`;
+};
+
+module.exports = generateLink;

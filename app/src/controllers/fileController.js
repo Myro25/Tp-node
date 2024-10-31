@@ -54,13 +54,29 @@ exports.uploadFile = [
                 }
             });
 
-            res.status(201).json({ message: 'Fichier uploadé avec succès', file: newFile });
+            // Générer un lien de partage
+            const link = generateLink(newFile.id, req.user.id);
+            res.status(201).json({ message: 'Fichier uploadé avec succès', file: newFile, link });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erreur lors de l\'upload du fichier' });
         }
     }
 ];
+
+// Fonction pour récupérer tous les fichiers uploadés par un utilisateur
+exports.getUploadedFiles = async (req, res) => {
+    try {
+        const userId = req.user.id; // Récupérer l'ID de l'utilisateur connecté
+        const files = await File.findAll({ where: { user_id: userId } }); // Récupérer les fichiers de l'utilisateur
+
+        res.json(files); // Renvoyer les fichiers sous forme de JSON
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur lors de la récupération des fichiers' });
+    }
+};
+
 
 // Fonction pour supprimer un fichier
 exports.deleteFile = async (req, res) => {
@@ -82,6 +98,7 @@ exports.deleteFile = async (req, res) => {
     }
 };
 
+// Fonction pour générer un lien de partage
 exports.generateLink = async (req, res) => {
     try {
         const fileId = req.params.id;

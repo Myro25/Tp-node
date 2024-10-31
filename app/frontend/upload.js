@@ -2,6 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploadForm = document.getElementById("uploadForm");
     const filesList = document.getElementById("filesList");
 
+    // Récupérer le token depuis le localStorage
+    const token = localStorage.getItem("token");
+
+    // Fonction pour récupérer et afficher tous les fichiers uploadés par l'utilisateur
+    const fetchUploadedFiles = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/files', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}` // Assurez-vous que le token est défini
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des fichiers');
+            }
+            const files = await response.json();
+            files.forEach(displayUploadedFile); // Afficher chaque fichier
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la récupération des fichiers : ' + error.message);
+        }
+    };
+
     // Fonction pour afficher les fichiers uploadés
     const displayUploadedFile = (file) => {
         const fileDiv = document.createElement("div");
@@ -20,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fonction pour supprimer un fichier
     window.deleteFile = async (fileId) => {
-        const token = localStorage.getItem("token");
         try {
             const response = await fetch(`http://localhost:3000/files/${fileId}`, {
                 method: 'DELETE',
@@ -42,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fonction pour générer un lien de partage
     window.generateShareLink = async (fileId) => {
-        const token = localStorage.getItem("token");
         try {
             const response = await fetch(`http://localhost:3000/files/share/${fileId}`, {
                 method: 'GET',
@@ -61,20 +82,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // Appel de la fonction pour charger les fichiers à l'initialisation
+    if (token) {
+        fetchUploadedFiles(); // Récupérer les fichiers uploadés à la connexion
+    } else {
+        alert("Utilisateur non authentifié. Veuillez vous connecter.");
+    }
+
     uploadForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const fileUpload = document.getElementById("fileUpload").files[0];
         const formData = new FormData();
         formData.append("file", fileUpload);
-
-        // Récupère le token de l'utilisateur depuis le localStorage
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-            alert("Utilisateur non authentifié. Veuillez vous connecter.");
-            return;
-        }
 
         try {
             const response = await fetch('http://localhost:3000/files/upload', {
