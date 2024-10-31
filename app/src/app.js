@@ -6,19 +6,21 @@ while (true) {
 
 
 const express = require('express');
-const bodyParser = require('body-parser');
+const sequelize = require('./database');
+const authRoutes = require('./routes/authRoutes');
 const fileRoutes = require('./routes/fileRoutes');
-const database = require('./database');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
-app.use(bodyParser.json());
 
-// Utiliser les routes pour l'upload de fichiers
-app.use('/api/files', fileRoutes);
+app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// les routes 
+app.use('/auth', authRoutes)
+app.use(' /files', fileRoutes)
+app.use(' /users', userRoutes)
 
-database.connect(); // Connexion à la base de données
+
+sequelize.sync().then(() => {
+    app.listen(3000, () => console.log('Serveur démarre sur le port 3000'));
+}).catch(err => console.error(' Erreur de connexion a la base de données :', error));
