@@ -82,7 +82,6 @@ exports.deleteFile = async (req, res) => {
     }
 };
 
-// Fonction pour générer un lien de partage
 exports.generateLink = async (req, res) => {
     try {
         const fileId = req.params.id;
