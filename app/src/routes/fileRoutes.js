@@ -8,8 +8,7 @@ const checkQuota = require('../middlewares/checkQuota');
 
 // Route pour uploader un fichier
 router.post('/upload', auth, checkQuota, fileController.uploadFile);
-router.delete('/:id', auth, fileController.deletefile);
+router.delete('/:id', auth, fileController.deleteFile);
 router.get('./share/:id', auth, fileController.generateLink);
-
 
 module.exports = router;
