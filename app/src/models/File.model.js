@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const sequelize = require('sequelize')
+const sequelize = require('../database')
 const User = require('./User.model')
 
 const File = sequelize.define('File', {

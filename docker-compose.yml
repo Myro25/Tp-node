@@ -5,20 +5,16 @@ services:
       - "3307:3306"
     environment:
       MARIADB_ROOT_PASSWORD: "password"
-    volumes:
-      - dbdata:/var/lib/mysql
+      MARIADB_DATABASE: "tpnode"
 
   backend:
     #build: .
     image: node:22
     ports:
-      - "3001:3001"
+      - "3000:3000"
 
     volumes:
       - ./app:/app
     depends_on:
       - mariadb
-    command: "node /app/src/app.js"
-
-volumes:
-  dbdata:
+    command: 'sh -c "cd /app && npm run start"'
