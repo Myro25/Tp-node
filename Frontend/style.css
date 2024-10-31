@@ -1,0 +1,85 @@
+/* Style de base */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f2f5;
+}
+
+/* Conteneur du formulaire */
+.container {
+    max-width: 400px;
+    width: 90%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Titre du formulaire */
+h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+/* Champs de formulaire */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="file"]:focus {
+    border-color: #0078d4;
+    outline: none;
+}
+
+/* Bouton de soumission avec dégradé */
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #0078d4, #00c6ff);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
+    margin-top: 15px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #005ea2, #00aaff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 120, 212, 0.4);
+}
