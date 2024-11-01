@@ -2,29 +2,35 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f2f5;
+    /* height: 100vh; */
+    margin: 10px;
+    background-color: #e8f0fe;
+    color: #333;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
 }
 
-/* Conteneur du formulaire */
+/* Conteneur principal */
 .container {
     max-width: 400px;
     width: 90%;
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
-/* Titre du formulaire */
+/* Titre principal */
 h2 {
-    color: #333;
+    color: #4a4a4a;
+    /* Couleur de titre */
     margin-bottom: 25px;
-    font-size: 24px;
+    font-size: 26px;
+    font-weight: 600;
 }
 
 /* Champs de formulaire */
@@ -44,21 +50,23 @@ h2 {
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="file"] {
-    width: 100%;
+    width: calc(100% - 20px);
+    /* Pour éviter que les champs collent aux bords */
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #b0c4de;
+    /* Couleur des bordures */
     border-radius: 8px;
     font-size: 15px;
     color: #333;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
+    margin: 0 auto;
+    /* Centrer les champs */
 }
 
-.form-group input[type="text"]:focus,
-.form-group input[type="email"]:focus,
-.form-group input[type="password"]:focus,
-.form-group input[type="file"]:focus {
-    border-color: #0078d4;
+.form-group input:focus {
+    border-color: #5c6bc0;
+    /* Couleur lors du focus */
     outline: none;
 }
 
@@ -66,7 +74,8 @@ h2 {
 button {
     width: 100%;
     padding: 12px;
-    background: linear-gradient(135deg, #0078d4, #00c6ff);
+    background: linear-gradient(135deg, #6a5acd, #00bcd4);
+    /* Dégradé */
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -74,22 +83,22 @@ button {
     font-size: 16px;
     font-weight: bold;
     transition: background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3);
+    box-shadow: 0 4px 8px rgba(106, 92, 205, 0.3);
     margin-top: 15px;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #005ea2, #00aaff);
+    background: linear-gradient(135deg, #5a4cbd, #00acc1);
+    /* Couleur au survol */
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 120, 212, 0.4);
+    box-shadow: 0 6px 12px rgba(106, 92, 205, 0.4);
 }
 
 /* Conteneur des fichiers uploadés */
 .uploaded-files-container {
-    max-width: 400px;
     width: 90%;
     margin: 20px auto;
-    padding: 15px;
+    padding: 20px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -97,41 +106,105 @@ button:hover {
 
 /* Titre des fichiers uploadés */
 .uploaded-files-container h3 {
-    color: #333;
+    color: #4a4a4a;
+    /* Couleur de titre */
     font-size: 20px;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
-/* Item de fichier */
+/* Style des items de fichier */
 .file-item {
     display: flex;
+    /* Utilise flexbox pour l'agencement */
+    flex-direction: row;
+    /* Affiche les éléments en ligne */
     align-items: center;
+    /* Centre les éléments verticalement */
     justify-content: space-between;
-    margin-bottom: 10px;
+    /* Espace entre les éléments */
+    margin-bottom: 15px;
+    /* Espace entre les éléments */
     padding: 10px;
+    /* Espacement à l'intérieur de chaque élément */
     border: 1px solid #ddd;
+    /* Bordure autour de chaque fichier */
     border-radius: 8px;
-    background-color: #f9f9f9;
+    /* Coins arrondis */
+    background-color: #94d8eb;
+    /* Couleur de fond */
+    width: calc(30% - 20px);
+    /* Largeur ajustée pour 3 éléments par ligne avec de l'espace */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Ombre légère pour donner de la profondeur */
 }
+
+#filesList {
+    display: flex;
+    /* Utilise Flexbox pour le conteneur */
+    flex-wrap: wrap;
+    /* Permet aux éléments de passer à la ligne si nécessaire */
+    justify-content: space-between;
+    /* Espace entre les éléments pour éviter qu'ils soient collés */
+    margin: 0;
+    /* Pas de marge */
+    padding: 0;
+    /* Pas de padding */
+}
+
 
 /* Image des fichiers uploadés */
 .file-item img {
-    width: 50px;
+    width: 100px;
+    /* Taille de l'image */
     height: auto;
-    margin-right: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-/* Boutons de suppression et de partage */
+/* Style du texte du fichier */
+.file-item p {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    color: #333;
+}
+
+/* Boutons de fichier */
 .file-item button {
-    background: #0078d4;
+    background: #5c6bc0;
+    /* Couleur du bouton */
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     cursor: pointer;
-    transition: background 0.3s;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    margin-top: 5px;
+    /* Espacement entre les boutons */
 }
 
 .file-item button:hover {
-    background: #005ea2;
+    background: #4f5b93;
+    /* Couleur au survol */
+}
+
+/* Style du lien de partage */
+.share-link {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #5c6bc0;
+    /* Couleur du lien */
+    text-align: center;
+}
+
+.share-link a {
+    color: #5c6bc0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.share-link a:hover {
+    text-decoration: underline;
 }

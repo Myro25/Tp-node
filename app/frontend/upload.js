@@ -62,25 +62,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Fonction pour générer un lien de partage
-    window.generateShareLink = async (fileId) => {
-        try {
-            const response = await fetch(`http://localhost:3000/files/share/${fileId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Erreur lors de la génération du lien');
-            }
-            const data = await response.json();
-            alert('Lien de partage : ' + data.link);
-        } catch (error) {
-            console.error('Erreur:', error);
-            alert('Erreur lors de la génération du lien : ' + error.message);
+   // Fonction pour générer un lien de partage
+window.generateShareLink = async (fileId) => {
+    try {
+        const response = await fetch(`http://localhost:3000/files/share/${fileId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Erreur lors de la génération du lien');
         }
-    };
+        const data = await response.json();
+        
+        // Afficher le lien de partage dans l'élément HTML
+        document.getElementById('shareLinkText').textContent = 'Lien de partage : ' + data.link;
+    } catch (error) {
+        console.error('Erreur:', error);
+        document.getElementById('shareLinkText').textContent = 'Erreur lors de la génération du lien : ' + error.message;
+    }
+};
+
 
     // Appel de la fonction pour charger les fichiers à l'initialisation
     if (token) {
