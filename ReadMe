@@ -1,0 +1,79 @@
+# TP-Node File Storage Application
+
+## Description
+Cette application est un projet de stockage de fichiers développé en Node.js avec Express.js. Les principales fonctionnalités sont :
+
+- Authentification des utilisateurs (inscription et connexion)
+- Téléchargement de fichiers avec gestion du quota de stockage
+- Partage de fichiers avec des liens expirants
+- Suppression de fichiers
+
+L'application utilise une base de données MariaDB pour stocker les informations des utilisateurs et des fichiers.
+
+## Technologies utilisées
+- Node.js
+- Express.js
+- Sequelize (ORM)
+- MariaDB (base de données)
+- JSON Web Tokens (JWT) pour l'authentification
+- Multer pour la gestion des fichiers uploadés
+
+## Installation et configuration
+
+1. Cloner le dépôt : https://github.com/Myro25/Tp-node.git
+
+2. Installer les dépendances : 
+- cd tp-node
+- npm install
+
+3. Configurer les variables d'environnement :
+- Créer un fichier `.env` à la racine du projet
+- Ajouter les variables suivantes :
+  ```
+  DB_NAME=tpnode
+  DB_USER=root
+  DB_PASSWORD=password
+  DB_HOST=localhost
+  SECRET=votre_secret_jwt
+  ```
+
+4. Démarrer l'application : npm start
+
+L'application sera accessible à l'adresse `http://localhost:3000`.
+
+## Fonctionnalités principales
+
+### Authentification
+- `/auth/register` : Inscription d'un nouvel utilisateur
+- `/auth/login` : Connexion d'un utilisateur existant
+
+### Gestion des fichiers
+- `/files/upload` : Téléchargement d'un fichier
+- `/files` : Liste des fichiers uploadés par l'utilisateur
+- `/files/:id` : Suppression d'un fichier
+- `/files/share/:id` : Génération d'un lien de partage pour un fichier
+
+### Configuration
+L'application utilise les variables d'environnement définies dans le fichier `.env` pour la configuration de la base de données et du secret JWT.
+
+## Structure du projet
+- `app.js` : Point d'entrée de l'application, configure Express et les routes
+- `controllers/` : Implémentation de la logique métier (authentification, gestion des fichiers)
+- `models/` : Définition des modèles de données (User, File)
+- `routes/` : Configuration des routes de l'application
+- `middlewares/` : Middlewares personnalisés (authentification, vérification du quota)
+- `utils/` : Fonctions utilitaires (génération de liens de partage)
+- `uploads/` : Dossier de stockage des fichiers uploadés
+
+## Déploiement
+L'application peut être déployée en utilisant Docker. Le fichier `Dockerfile` fournit la configuration nécessaire pour créer une image Docker de l'application.
+
+```Dockerfile
+FROM node:22
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY ./app .
+CMD ["node", "src/app.js"]
+
+Le fichier docker-compose.yml permet de déployer les services MariaDB et backend
